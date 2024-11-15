@@ -1,0 +1,11 @@
+name: producer
+language: Python
+variables:
+  - name: output
+    inputType: OutputTopic
+    defaultValue: stocks
+    required: false
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: starter-source

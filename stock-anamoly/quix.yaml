@@ -1,0 +1,90 @@
+# Quix Project Descriptor
+# This file describes the data pipeline and configuration of resources of a Quix Project.
+
+metadata:
+  version: 1.0
+
+# This section describes the Deployments of the data pipeline
+deployments:
+  - name: producers
+    application: producers
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 800
+      replicas: 1
+    variables:
+      - name: output
+        inputType: OutputTopic
+        required: false
+        value: stocks
+  - name: anomaly-detector
+    application: anomaly-detector
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 800
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        required: false
+        value: stocks
+      - name: output
+        inputType: OutputTopic
+        required: false
+        value: anomalies
+  - name: producer
+    application: producer
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 800
+      replicas: 1
+    variables:
+      - name: output
+        inputType: OutputTopic
+        required: false
+        value: stocks
+  - name: transformation
+    application: transformation
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 800
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        required: false
+        value: stocks
+      - name: output
+        inputType: OutputTopic
+        required: false
+        value: anomalies
+  - name: transform
+    application: transform
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 800
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        required: false
+        value: stocks
+      - name: output
+        inputType: OutputTopic
+        required: false
+        value: Anomalies
+
+# This section describes the Topics of the data pipeline
+topics:
+  - name: stocks
+  - name: Anomalies
